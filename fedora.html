@@ -12,77 +12,96 @@
 	  <hr style="height:2px;border-width:0;color:gray;background-color:gray">
     <p>publication date 2022/08/01</p>
 
-<ol>
-	<li> Tools for packages management</li><br>
-		command line:        dnf (like apt)<br>
-					 rpm (like dpkg)<br>
-		graphical interface: dnfdragora (like synaptic)<br>
-	</li>
+
+<h2>Tools for packages management</h2>
+command line:<br>
+     dnf (like apt)<br>
+	 rpm (like dpkg)<br>
+graphical interface: <br>
+	dnfdragora (like synaptic)<br>
 
 
- dnfdragora is not starting
+<h2>dnfdragora is not starting</h2>
 
-normally this happens afer a system upgrade or after changing/visualizing
-"User preferences" or "Information" in dnfdragora
-
+Normally this happens afer a system upgrade or after changing/visualizing
+"User preferences" or "Information" in dnfdragora.
+To solve this problem the following command need to be passed to the command line
+<pre>
 rm /root/.config/dnfdragora.yaml
 killall dnfdragora-updater
 killall dnfdaemon-system
 dnfdragora-updater &
-
-a function in .bashrc called slay_dnf to the job
-
-/END
+</pre>
 
 
-3) additional missing rpm packages from rpmsphere:
+
+
+<h2>Usefuls rpm repositories to fill the lack of packages in Fedora</h2>
+<pre>
 https://rpmsphere.github.io/
+https://dl.google.com/linux/chrome/rpm/stable/x86_64
+http://dl.google.com/linux/earth/rpm/stable/x86_64
+https://packages.microsoft.com/yumrepos/edge/
+https://packages.microsoft.com/yumrepos/ms-teams
+https://rpm.opera.com/rpm
+</pre>
 
-/END
-========================================================================
 
-4) hosts added to /etc/hosts
 
-134.171.2.8     phase3int phase3int.hq.eso.org     # INTEGRATION macchina per ssh e ftp
-134.171.11.14   ssoint    ssoint.hq.eso.org        # INTEGRATION macchina webserver
 
-/END
-========================================================================
-
-5) improving gnome3 for non brain dead people
+<h2>improving gnome3 for non brain dead people</h2>
 
 dnf install -y gnome-extensions-app gnome-tweaks gnome-shell-extension-appindicator
 
-/END
-========================================================================
 
-6) activate/deactivate services
+<h2>ncurses GUI for activate/deactivate services</h2>
 
 ntsysv
 
-/END
-========================================================================
 
-7) increase the size of tmpfs withouth reboot
-
+<h2>dealing with small RAM size and tmpfs</h2>
+<p>Fedora has by default the annoying setup of disabling /tmp directory 
+and putting its contents in RAM using tmpfs.</p>
+<p>In system with small amount of RAM (typically below 16 Gb)
+this setup cause a lot of problems due to the RAM voracity
+of most of the actual programs.
+</p>
+<p>
+It is also quite complex to solve this issue withouth a fresh reinstall of the system.
+If you cannot install a good distro like Debian, you can start
+increasing the size of tmpfs withouth reboot:
+<pre>
 mount -o remount,size=16G,noatime /tmp
-
-/END
-========================================================================
-journalctl -b -l
+</pre>
+checking the configuration of oomd:
+<pre>
 systemd-analyze cat-config systemd/oomd.conf
-https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/
-https://www.freedesktop.org/software/systemd/man/systemd-oomd.service.html
-
-https://lwn.net/Articles/824769/
+</pre>
+If was hable to activate an alternative swap partition you can maks tmpfs
+<pre>
 systemctl mask tmp.mount
-https://fedoraproject.org/wiki/Features/tmp-on-tmpfs#Release_Notes
+</pre>
+The relevant documentation is here:
+<a href="https://fedoraproject.org/wiki/Features/tmp-on-tmpfs#Release_Notes
+">tmp on tmpfs</a><br>
+<a href="https://lwn.net/Articles/824769/">masking /tmp</a><br>
+<a href="https://www.freedesktop.org/software/systemd/man/systemd-oomd.service.html
+">oomd</a><br>
+</p>
 
 
 
+<h2>Upgrade Fedora</h2>
 
+How to
+<a href="https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/">upgrade Fedora</a>
+in the correct way
+
+<!--
+journalctl -b -l
 dnf system-upgrade clean
 dnf clean packages
+-->
 
 </ol>
       <p>
