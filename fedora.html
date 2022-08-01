@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Fedora tips</title>
+  </head>
+  <body>
+	  <h1><a id="a000"></a>Fedora tips articles index</h1>
+      <p>
+		  <a href="index.html">Go back to the main page</a>
+      </p>
+	  <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+    <p>publication date 2022/08/01</p>
+
+<ol>
+	<li> Tools for packages management</li><br>
+		command line:        dnf (like apt)<br>
+					 rpm (like dpkg)<br>
+		graphical interface: dnfdragora (like synaptic)<br>
+	</li>
+
+
+ dnfdragora is not starting
+
+normally this happens afer a system upgrade or after changing/visualizing
+"User preferences" or "Information" in dnfdragora
+
+rm /root/.config/dnfdragora.yaml
+killall dnfdragora-updater
+killall dnfdaemon-system
+dnfdragora-updater &
+
+a function in .bashrc called slay_dnf to the job
+
+/END
+
+
+3) additional missing rpm packages from rpmsphere:
+https://rpmsphere.github.io/
+
+/END
+========================================================================
+
+4) hosts added to /etc/hosts
+
+134.171.2.8     phase3int phase3int.hq.eso.org     # INTEGRATION macchina per ssh e ftp
+134.171.11.14   ssoint    ssoint.hq.eso.org        # INTEGRATION macchina webserver
+
+/END
+========================================================================
+
+5) improving gnome3 for non brain dead people
+
+dnf install -y gnome-extensions-app gnome-tweaks gnome-shell-extension-appindicator
+
+/END
+========================================================================
+
+6) activate/deactivate services
+
+ntsysv
+
+/END
+========================================================================
+
+7) increase the size of tmpfs withouth reboot
+
+mount -o remount,size=16G,noatime /tmp
+
+/END
+========================================================================
+journalctl -b -l
+systemd-analyze cat-config systemd/oomd.conf
+https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/
+https://www.freedesktop.org/software/systemd/man/systemd-oomd.service.html
+
+https://lwn.net/Articles/824769/
+systemctl mask tmp.mount
+https://fedoraproject.org/wiki/Features/tmp-on-tmpfs#Release_Notes
+
+
+
+
+dnf system-upgrade clean
+dnf clean packages
+
+</ol>
+      <p>
+		  <a href="#a000">Go to the index</a>
+      </p>
+
+      <hr>
+
+<!--
+    <h2><a id="a002"></a>TITLE</h2>
+    <p>publication date 2022/XX/XX</p>
+      <p>
+		  <a href="#a000">Go to the index</a>
+      </p>
+
+      <hr>
+-->
+      
+  </body>
+</html>
