@@ -73,15 +73,26 @@ increasing the size of tmpfs withouth reboot:
 <pre>
 mount -o remount,size=16G,noatime /tmp
 </pre>
-checking the configuration of oomd:
+You can check the configuration of oomd, and increase the limits:
 <pre>
 systemd-analyze cat-config systemd/oomd.conf
 </pre>
-If was hable to activate an alternative swap partition you can maks tmpfs
+If you was hable to activate an alternative swap partition you can mask tmpfs
 <pre>
 systemctl mask tmp.mount
 </pre>
-The relevant documentation is here:
+If you cannot change anything of the above, the last resource is to redefine in the .bashrc
+all the XDG variables that points to /tmp to another physical directory
+in which your user has access, like this:
+<pre>
+export TMPDIR=/work/tmp
+export TMP=/work/tmp
+export TEMP=/work/tmp
+export XDG_CACHE_HOME=/work/tmp
+export XDG_DOWNLOAD_DIR=/work/tmp
+</pre>
+
+The relevant documentation is here:<br>
 <a href="https://fedoraproject.org/wiki/Features/tmp-on-tmpfs#Release_Notes
 ">tmp on tmpfs</a><br>
 <a href="https://lwn.net/Articles/824769/">masking /tmp</a><br>
@@ -96,6 +107,30 @@ The relevant documentation is here:
 How to
 <a href="https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/">upgrade Fedora</a>
 in the correct way
+
+<h2>XFCE4 configuration</h2>
+Change Xfce4 themes withouth experiencing disruption with GTK3
+<pre>
+dnf install xfce-theme-manager
+</pre>
+If you want to fix the screen resolution, edit this file
+<pre>.config/xfce4/xfconf/xfce-perchannel-xml/displays.xml</pre>
+and make it read only.
+(tips from <a href="https://unix.stackexchange.com/questions/274506/how-to-set-persistent-resolution-in-xfce-on-debian">here</a>)
+
+
+<h2>Useful alias in .bashrc</h2>
+<pre>
+alias md='mkdir'
+alias ls='ls -F --color'
+alias lt='ls -ltr'
+alias la='ls -la'
+alias dnf-search='dnf search --all'
+alias dnf-who='dnf provides'
+alias dnf-info='dnf info'
+alias dnf-content='dnf repoquery -l'
+</pre>
+
 
 <!--
 journalctl -b -l
