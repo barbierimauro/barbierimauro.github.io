@@ -15,18 +15,22 @@
 
 
 <h2>Tools for packages management</h2>
+<p>
 command line:<br>
      dnf (like apt)<br>
 	 rpm (like dpkg)<br>
+</p>
+<p>
 graphical interface: <br>
 	dnfdragora (like synaptic)<br>
-
+</p>
 
 <h2>dnfdragora is not starting</h2>
-
+<p>
 Normally this happens afer a system upgrade or after changing/visualizing
 "User preferences" or "Information" in dnfdragora.
 To solve this problem the following command need to be passed to the command line
+</p>
 <pre>
 rm /root/.config/dnfdragora.yaml
 killall dnfdragora-updater
@@ -52,13 +56,15 @@ https://rpm.opera.com/rpm
 
 <h2>improving gnome3 for non brain dead people</h2>
 
+<pre>
 dnf install -y gnome-extensions-app gnome-tweaks gnome-shell-extension-appindicator
-
+</pre>
 
 <h2>ncurses GUI for activate/deactivate services</h2>
 
+<pre>
 ntsysv
-
+</pre>
 
 <h2>dealing with small RAM size and tmpfs</h2>
 <p>Fedora has by default the annoying setup of disabling /tmp directory 
@@ -74,17 +80,23 @@ increasing the size of tmpfs withouth reboot:
 <pre>
 mount -o remount,size=16G,noatime /tmp
 </pre>
+<p>
 You can check the configuration of oomd, and increase the limits:
+</p>
 <pre>
 systemd-analyze cat-config systemd/oomd.conf
 </pre>
+<p>
 If you was hable to activate an alternative swap partition you can mask tmpfs
+</p>
 <pre>
 systemctl mask tmp.mount
 </pre>
+<p>
 If you cannot change anything of the above, the last resource is to redefine in the .bashrc
 all the XDG variables that points to /tmp to another physical directory
 in which your user has access, like this:
+</p>
 <pre>
 export TMPDIR=/work/tmp
 export TMP=/work/tmp
@@ -92,33 +104,33 @@ export TEMP=/work/tmp
 export XDG_CACHE_HOME=/work/tmp
 export XDG_DOWNLOAD_DIR=/work/tmp
 </pre>
-
-The relevant documentation is here:<br>
-<a href="https://fedoraproject.org/wiki/Features/tmp-on-tmpfs#Release_Notes
-">tmp on tmpfs</a><br>
+<p>
+The relevant documentation is here:</p><br>
+<a href="https://fedoraproject.org/wiki/Features/tmp-on-tmpfs#Release_Notes">tmp on tmpfs</a><br>
 <a href="https://lwn.net/Articles/824769/">masking /tmp</a><br>
-<a href="https://www.freedesktop.org/software/systemd/man/systemd-oomd.service.html
-">oomd</a><br>
-</p>
+<a href="https://www.freedesktop.org/software/systemd/man/systemd-oomd.service.html">oomd</a><br>
+
 
 
 
 <h2>Upgrade Fedora</h2>
 
-How to
-<a href="https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/">upgrade Fedora</a>
-in the correct way
+<p>How to <a href="https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/">upgrade Fedora</a>
+in the correct way</p>
 
 <h2>XFCE4 configuration</h2>
+<p>
 Change Xfce4 themes withouth experiencing disruption with GTK3
+</p>
 <pre>
 dnf install xfce-theme-manager
 </pre>
+</p>
 If you want to fix the screen resolution, edit this file
 <pre>.config/xfce4/xfconf/xfce-perchannel-xml/displays.xml</pre>
 and make it read only.
 (tips from <a href="https://unix.stackexchange.com/questions/274506/how-to-set-persistent-resolution-in-xfce-on-debian">here</a>)
-
+<p>
 
 <h2>Useful alias in .bashrc</h2>
 <pre>
