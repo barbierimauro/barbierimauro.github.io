@@ -246,6 +246,52 @@ The list is divided by type of data sets (<a href="#spec">spectra</a>, <a href="
 
 <br>
 
+<h2>Some plots</h2>
+
+<h3>SNR histograms</h3>
+<p>
+Cumulative histograms of SNR for the different instruments
+</p>
+<a href="../images/hist_cumul_snr_part1.png" target="_blank"><img src="../images/hist_cumul_snr_part1.png" width="600" alt=""></a><br>
+<a href="../images/hist_cumul_snr_part2.png" target="_blank"><img src="../images/hist_cumul_snr_part2.png" width="600" alt=""></a><br>
+
+<h3>Redshift histograms</h3>
+<p>
+Histograms of redshift of various extragalactic targets
+</p>
+<a href="../images/hist_redshift_part1.png" target="_blank"><img src="../images/hist_redshift_part1.png" width="600" alt=""></a><br>
+<a href="../images/hist_redshift_part2.png" target="_blank"><img src="../images/hist_redshift_part2.png" width="600" alt=""></a><br>
+
+<h3>Target vs Simbad separation</h3>
+<p>
+Histograms of the separation between the target and the nearest Simbad counterpart
+</p>
+<a href="../images/hist_sep_simbad_part1.png" target="_blank"><img src="../images/hist_sep_simbad_part1.png" width="600" alt=""></a><br>
+<a href="../images/hist_sep_simbad_part2.png" target="_blank"><img src="../images/hist_sep_simbad_part2.png" width="600" alt=""></a><br>
+
+<h3>HR diagrams</h3>
+<p>
+HR diagrams for the various instruments
+</p>
+<h4>ALL INSTRUMENTS</h4>
+<a href="../images/hr_diag_all.png" target="_blank"><img src="../images/hr_diag_all.png" width="600" alt=""></a><br>
+<h4>GIRAFFE</h4>
+<a href="../images/hr_diag_giraffe.png" target="_blank"><img src="../images/hr_diag_giraffe.png" width="600" alt=""></a><br>
+<h4>UVES</h4>
+<a href="../images/hr_diag_uves.png" target="_blank"><img src="../images/hr_diag_uves.png" width="600" alt=""></a><br>
+<h4>XSHOOTER</h4>
+<a href="../images/hr_diag_xshooter.png" target="_blank"><img src="../images/hr_diag_xshooter.png" width="600" alt=""></a><br>
+<h4>HARPS</h4>
+<a href="../images/hr_diag_harps.png" target="_blank"><img src="../images/hr_diag_harps.png" width="600" alt=""></a><br>
+<h4>FEROS</h4>
+<a href="../images/hr_diag_feros.png" target="_blank"><img src="../images/hr_diag_feros.png" width="600" alt=""></a><br>
+<h4>KMOS</h4>
+<a href="../images/hr_diag_kmos.png" target="_blank"><img src="../images/hr_diag_kmos.png" width="600" alt=""></a><br>
+<h4>ESPRESSO</h4>
+<a href="../images/hr_diag_espresso.png" target="_blank"><img src="../images/hr_diag_espresso.png" width="600" alt=""></a><br>
+
+
+
 
       <hr>
       <p>
@@ -262,16 +308,26 @@ The list is divided by type of data sets (<a href="#spec">spectra</a>, <a href="
       </p>
       <hr>
 
-
-<!--
-    <h2><a id="a002"></a>    TITLE</h2>
-    <p>publication date 2022/XX/XX</p>
-      <p>
-		  <a href="#a000">Go to the index</a>
-      </p>
-
-      <hr>
--->
       
   </body>
 </html>
+
+
+<!--
+Q1:
+select obs_collection,dataproduct_type,dataproduct_subtype,instrument_name, max(last_mod_date) as last_modification, count(*) as nfiles
+from ivoa.ObsCore
+group by obs_collection,dataproduct_type,dataproduct_subtype,instrument_name
+order by nfiles desc
+
+Q2:
+select target_name as target, s_ra as ra, s_dec as dec, gal_lon as glon, gal_lat as glat, em_min as wlmin, em_max as wlmax, em_res_power as res_power, snr, 
+(t_max+t_min)/2.0 as t_mid, t_exptime as exptime, instrument_name as instrument, obs_collection as collection, dp_id
+from ivoa.obscore
+where dataproduct_type = 'spectrum'
+
+remove Sun and Moon
+contains(toLowerCase(target),"sun")|contains(toLowerCase(target),"solar")|contains(toLowerCase(target),"moon")|contains(toLowerCase(target),"sky")|contains(toLowerCase(target),"luna")
+
+ls -1 ../images/h*png | awk '{printf"<a href=#%s# target=#_blank#><img src=#%s# width=#600# alt=##></a>\n",$1,$1}' | sed -e 's/#/"/g'
+-->
