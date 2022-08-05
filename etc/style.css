@@ -86,7 +86,12 @@ li {
     font-size: 1.1vw;
 }
 
-
+.twocol-ul{
+  font-size: 1.1vw;
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
 
 
 
