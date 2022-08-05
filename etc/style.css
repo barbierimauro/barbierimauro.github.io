@@ -74,20 +74,22 @@ h6 {
 
 /*.hline { width:100%; height:1px; background: #fff }*/
 
+/*
 ul {
     width: 60%;
     line-height:150%;
     font-size: 1.1vw;
 }
+*/
 
 li {
-    width: 60%;
+    /* width: 60%; */
     line-height:150%;
     font-size: 1.1vw;
 }
 
 .twocol-ul{
-  font-size: 1.1vw;
+  /* font-size: 1.1vw; */
   columns: 3;
   -webkit-columns: 3;
   -moz-columns: 3;
