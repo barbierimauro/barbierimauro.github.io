@@ -30,10 +30,10 @@ pre {
 }
 
 
-a:active {
+a {
     color: rgb(255, 0, 102);
     font-weight: bold;
-    /*font-size: 1.2vw;*/
+    font-size: 1.1vw;
 }
 
 h1 {
