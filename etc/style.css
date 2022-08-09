@@ -65,16 +65,18 @@
 
 	/* Families */
 	body							{ font-family:"tablet-gothic", verdana, arial, sans-serif; /* Weights from Typekit: 300, 400 */ }
-	h2,
-	h3 								{ font-family:"tablet-gothic-condensed", "arial narrow", arial, verdana, sans-serif; /* Weights from Typekit: 200, 900 */ }
+	
+	
+	h1,h3,h2,h3,h4,h5,h6			{ font-family:"tablet-gothic-condensed", "arial narrow", arial, verdana, sans-serif; /* Weights from Typekit: 200, 900 */  color:#fff;}
 
 	/* Headings */
-	h1 								{ font-size:2.5em; background:#ea2e49; color:#fff; display:inline-block; margin-bottom:1em; padding:0.5em 1em; }
-	h2 								{ color:#fff; font-weight:900; /* Heavy */ font-size:2em; letter-spacing:1px; line-height:1em; }
-	h3 								{ font-size:1.75em; font-weight:200; /* Thin */ letter-spacing:1px; line-height:1em; padding:0.5em 0 0.25em 0; }
-	h4 								{ font-size:1.50em; font-weight:200; /* Thin */ letter-spacing:1px; line-height:1em; padding:0.5em 0 0.25em 0; }
-	h5 								{ font-size:1.25em; font-weight:200; /* Thin */ letter-spacing:1px; line-height:1em; padding:0.5em 0 0.25em 0; }
-	h6 								{ font-size:1.10em; font-weight:200; /* Thin */ letter-spacing:1px; line-height:1em; padding:0.5em 0 0.25em 0; }
+	h1 	{ background: #ea2e49; font-size:2.50em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; display:inline-block; }
+	h2 	{ background: #ff8000; font-size:2.00em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h3 	{ background: #eeee00; font-size:1.75em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h4 	{ background: #80e0ff; font-size:1.50em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h5 	{ background: #0080ff; font-size:1.25em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h6 	{ background: #c000b0; font-size:1.10em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
+    
 
 	/* Links */
 	a 								{ border-bottom:1px solid rgba(0,0,0,0.2); color:#333; text-decoration:none; -moz-transition:border-color 0.2s ease-in-out; -ms-transition:border-color 0.2s ease-in-out; -o-transition:border-color 0.2s ease-in-out; -webkit-transition:border-color 0.2s ease-in-out; transition:border-color 0.2s ease-in-out; }
