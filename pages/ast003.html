@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>updating TEMPO2 clock files</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Mauro Barbieri">
+  <meta name="description" content="updating TEMPO2 clock files">
+  <meta name="robots" content="all">
+  <link href="../etc/style.css" rel="stylesheet" type="text/css">
+  <script src="http://use.typekit.net/lxq7gid.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>  </head>
+  </head>
+  <body>
+
+
+    
+    <h1>
+	<a id="begin"></a>
+    updating TEMPO2 clock files
+    </h1>
+    <p>publication date 2022/08/09</p><hr>
+
+TEMPO2 is a pulsar timing package, developed by George Hobbs and Russell Edwards (<a href="https://bitbucket.org/psrsoft/tempo2/src/master/">source code</a>).
+The purpose of this contribution is to improve the TEMPO2 documentation in some parts that are not fully explained.
+
+<h2>HOWTO UPDATE THE CLOCK FILES</h2>
+Clock files in the GIT of TEMPO2 are not updated very often, so it is necessary to do it manually.
+The minimum set of files that are necessary to update, are the following:  
+<pre>gps2utc.clk, ut1.dat, utc2tai.clk, eopc04_IAU2000.62-now</pre>
+
+<h3>1. gps2utc.clk</h3>
+Requisite: <br>
+download the TEMPO2 auxiliary programs from 
+<a href="https://web.archive.org/web/20060908130342/http://www.atnf.csiro.au/research/pulsar/ppta/tempo2/tempo2_auxiliary.tar.gz">this page</a><br>
+download the BIPM circulars T from this site 
+<a href="ftp://ftp2.bipm.org/pub/tai/publication/cirt/">ftp://ftp2.bipm.org/pub/tai/publication/cirt/</a><br>
+Compile the TEMPO2 auxiliary programs: from the directory where are stored the <pre>cirt.*</pre> files run the following command:<br>
+<pre>/path/to/update_clkcorr -t gpsutc cirt.*</pre><br>
+The updated file <pre>gps2utc.clk</pre> will be named <pre>$TEMPO2/clock/gps2utc.clk.new</pre><br>
+<!--For more information see also this <a href="http://www.atnf.csiro.au/people/pulsar/index.html?n=Processing.Newclkcorr"></a>page-->
+Remember that you need all the <pre>cirt.*</pre> files, if some files are missing, you will have incorrect results.<br>
+The first files is <pre>cirt.100</pre>, and the the files are update around the 10 of each month.
+At the next update you need only to download the new files.
+
+<h3>2. ut1.dat</h3>
+Requisite:<br> 
+download the tempo <pre>do.iers.ut1.new</pre> utility from this page (at the bottom),<br> 
+download the IERS bulletins B from this site <a href="http://hpiers.obspm.fr/iers/bul/bulb_new">http://hpiers.obspm.fr/iers/bul/bulb_new</a><br>
+From the directory where are stored the <pre>bulletinb.*</pre> files run the following command:<br>
+<pre>/path/to/do.iers.ut1.new bulletinb.* >ut1.dat</pre><br>
+Then copy the file ut1.dat to <pre>$TEMPO2/clock/ut1.dat</pre>
+(<pre>do.iers.ut1.new</pre> is part of the program <a href="http://tempo.sourceforge.net/">TEMPO</a>)<br>
+For more information see this <a href="http://www.jb.man.ac.uk/~pulsar/observing/progs/tempo_ut1.html">page</a>.<br>
+ <!-- and this page  http://www.atnf.csiro.au/people/pulsar/index.html?n=Processing.Ut1 -->
+Remember that you need all <pre>the bulletinb.* files</pre>, if some files are missing, you will have incorrect results.
+The first files is <pre>bulletinb.252</pre>, and the the files are update around the 1st of each month.
+At the next update you need only to download the new files.
+
+<h3>3. utc2tai.clk</h3>
+Requisite: download the utc2tai correction from this file <a href="ftp://maia.usno.navy.mil/ser7/tai-utc.dat">ftp://maia.usno.navy.mil/ser7/tai-utc.dat</a><br>
+Then manually edit <pre>$TEMPO2/clock/utc2tai.clk</pre> to insert the new leap seconds
+See also this <a href="https://bitbucket.org/psrsoft/tempo2/src/master/T2runtime/clock/utc2tai.clk">page</a>.
+<!-- old link https://github.com/aarchiba/tempo2/blob/master/T2runtime/clock/utc2tai.clk -->
+
+<h3>4. eopc04_IAU2000.62-now</h3>
+Requisite:<br>
+download the Earth orientation parameters series from this file <a href="http://hpiers.obspm.fr/iers/eop/eopc04/eopc04_IAU2000.62-now">http://hpiers.obspm.fr/iers/eop/eopc04/eopc04_IAU2000.62-now</a><br>
+Copy the file in <pre>$TEMPO2/earth</pre><br>
+The file is updated once per month, in the first days each month.
+At the next update you need to download the new file.
+
+<!--
+<h3>UPDATED FILES</h3>
+From this link you can download the previously described clock files, updated to the last month.
+-->
+
+<h3>HOWTO ADD A NEW OBSERVATORY</h3>
+
+Adding a new observatory is not difficult, but is not well explained in the TEMPO2 documentation.
+Simply you need to edit the file <pre>$TEMPO/observatory/observatories.dat</pre>, but the TEMPO2 documentation state that:
+
+<p>
+<i>"For full accuracy, observatory coordinates should be specified in the International Terrestrial Reference System."</i><br>
+</p>
+
+Hence the coordinates that are needed in the file <pre>observatories.dat</pre> are XYZ geodesic coordinates in ITRS system.
+From the above documentation is not clear how to provide the ITRS coordinates, moreover ITRS is a "virtual" system 
+and the realization of this system is the ITRF, <a href="http://www.iers.org/IERS/EN/DataProducts/ITRS/itrs.html">as clearly stated</a> by the International Earth Rotation and Reference Systems Service (IERS):<br>
+
+<p>
+<i>"The International Terrestrial Reference System (<a href="http://www.iers.org/IERS/EN/Science/ITRS/ITRS.html">ITRS</a>) 
+constitutes a set of prescriptions and conventions together with 
+the modelling required to define origin, scale, orientation and time evolution of a Conventional Terrestrial Reference System (CTRS). 
+The ITRS is an ideal reference system, as defined by the <a href="http://www.iers.org/IERS/EN/Science/Recommendations/resolutionCTRS.html">IUGG resolution No. 2 adopted in Vienna, 1991</a>. 
+The system is realised  by the International Terrestrial Reference Frame (ITRF) based upon estimated coordinates and velocities of a set of stations 
+observed by <a href="http://www.iers.org/IERS/EN/Science/Techniques/vlbi.html">VLBI</a>,
+<a href="http://www.iers.org/IERS/EN/Science/Techniques/llr.html">LLR</a>, 
+<a href="http://www.iers.org/IERS/EN/Science/Techniques/gps.html">GPS</a>, 
+<a href="http://www.iers.org/IERS/EN/Science/Techniques/slr.html">SLR</a>, and 
+<a href="http://www.iers.org/IERS/EN/Science/Techniques/doris.html">DORIS</a>. 
+The ITRS can be connected to the International Celestial Reference System (<a href="http://www.iers.org/IERS/EN/Science/ICRS/ICRS.html">ICRS</a>) 
+by use of the IERS Earth Orientation Parameters (<a href="">EOP</a>)."</i>
+</p>
+
+However the IERS help us with <a href="ftp://itrf.ensg.ign.fr/pub/itrf/WGS84.TXT">this document</a>, that clarify the following:
+<p>
+<i>"In general the ITRS (and its realizations ITRFyy) are identical to WGS84 at one meter level".</i><br>
+</p>
+
+This means that you can insert your XYZ coordinates provided by your GPS (that are based on WGS84 geoid), or in the worst 
+case convert the longitude, latitude, and altitude to XYZ coordinates (a simple C program for the conversion in both 
+direction is <a href="http://sourceforge.net/p/xyz2lla/code/HEAD/tree/src/">available here</a>).<br>
+
+An accuracy of 100 cm on the position means an accuracy in time of about 3 ns.
+
+<h3>TEST TEMPO2 PERFORMANCES</h3>
+It is very important to test if your installation of TEMPO2 is correct, because otherwise you can obtain wrong timing data.
+The problem does not comes from the source code, but with the update of the clock files.
+A simple way to test TEMPO2 is trying to reproduce the figures in <a href="http://adsabs.harvard.edu/cgi-bin/nph-bib_query?bibcode=2006MNRAS.369..655H&db_key=AST&data_type=HTML&format=&high=45da987ff605692">Hobbs, Edwards & Manchester (2006)</a>.<br>
+
+
+<hr>
+<h5>Local copy of some important documents</h5>
+
+<h6>Updating UT1</h6>
+This is a local copy of the text in this web page:<br>
+<a href="http://www.jb.man.ac.uk/~pulsar/observing/progs/tempo_ut1.html">http://www.jb.man.ac.uk/~pulsar/observing/progs/tempo_ut1.html</a><br>
+I copy the the contents only for preserving it in case of disappearence from the web.
+
+<pre>
+
+    The final ut1.dat file is held in $TEMPO/clock. Working files and utilities are held in $TEMPO/clock/ut1_updates.
+    You should be able to download the latest ut1.dat from http://www.naic.edu/~pulsar// (Arecibo). Save it in the ut1_updates directory and put a copy in the clock directory.
+    Otherwise.......
+    Feb 08: This method is currently broken, from bulletin 139 onwards (they've changed the format and the script need updating!)
+    Browse to http://hpiers.obspm.fr/iers/bul/bulb/  and download the highest numbered (latest) bulletinb.XXX to the ut1_updates directory (and any intermediate bulletins that you may need).
+    Run do.iers.ut1 (in $TEMPO/clock/ut1_update) on each bulletin: 
+
+    (Make sure any new leap seconds get added to @leapmjd array in do.iers.ut1). 
+    example: do.iers.ut1 bull/bulletinb.128 > ut1.128
+    Append ut1.xx to $TEMPO/clock/ut1_updates/ut1.dat. First five numbers should be updates to projected values from previous ut1.xx; last five numbers should be new (projected) values.
+    If the last line of ut1.dat is incomplete -- it typically has four entries instead of the usual six -- then the number of entries ('4') should be in column 60 of the last line. Column 60 of other lines should be blank.
+    Run check.ut1 to do a 'sanity check' on the new ut1.dat file
+    Copy the updated file to $TEMPO/clock/ut1.dat.
+
+
+Derived from $TEMPO/clock/ut1_updates/0readme.txt by Ingrid Stairs. 23rd Oct 2000 
+-  site address updated Oct 2 2002 Caj.
+</pre>
+
+<hr>
+      <p>
+		  <a href="../astronomy.html">Go to the astronomy index</a><br>
+		  <a href="ast002.html">Previous article</a><br>
+		  <a href="ast004.html">Next article</a>
+      </p>
+      <hr>
+
+      
+  </body>
+</html>
+
+

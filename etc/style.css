@@ -70,12 +70,12 @@
 	h1,h3,h2,h3,h4,h5,h6			{ font-family:"tablet-gothic-condensed", "arial narrow", arial, verdana, sans-serif; /* Weights from Typekit: 200, 900 */  color:#fff;}
 
 	/* Headings */
-	h1 	{ background: #ea2e49; font-size:2.50em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
-	h2 	{ background: #ff8000; font-size:2.00em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
-	h3 	{ background: #eeee00; font-size:1.75em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
-	h4 	{ background: #80e0ff; font-size:1.50em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
-	h5 	{ background: #0080ff; font-size:1.25em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
-	h6 	{ background: #c000b0; font-size:1.10em; font-weight:900; letter-spacing:1px; line-height:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h1 	{ background: #ea2e49; font-size:2.50em; font-weight:900; letter-spacing:1px; line-height:1em; margin-top:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h2 	{ background: #ff8000; font-size:2.00em; font-weight:900; letter-spacing:1px; line-height:1em; margin-top:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h3 	{ background: #eeee00; font-size:1.75em; font-weight:900; letter-spacing:1px; line-height:1em; margin-top:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h4 	{ background: #80e0ff; font-size:1.50em; font-weight:900; letter-spacing:1px; line-height:1em; margin-top:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h5 	{ background: #0080ff; font-size:1.25em; font-weight:900; letter-spacing:1px; line-height:1em; margin-top:1em; margin-bottom:1em; padding:0.5em 1em; }
+	h6 	{ background: #c000b0; font-size:1.10em; font-weight:900; letter-spacing:1px; line-height:1em; margin-top:1em; margin-bottom:1em; padding:0.5em 1em; }
     
 
 	/* Links */
@@ -125,15 +125,29 @@
 	div.requirements 				{ background:rgba(255,255,255,0.9); padding:5%; }
 
 
+/* 
+ * 
+ * MY ADDITIONS
+ * 
+*/
 
 .multicol-ul{
-  columns: 3;
+  columns: 4;
   font-size:1em; 
   font-weight:400; 
   line-height:1em; 
   padding:0.5em 0;
 }
 
+pre {
+    display: inline-block;
+    /* https://retrocomputing.stackexchange.com/questions/12835/exactly-what-color-was-the-text-on-monochrome-terminals-with-green-on-black-and */
+    color: #ffb000;
+    background-color: #282828;
+    font-size: 1.1vw;
+    font-style: italic;
+    font-weight: bold;
+}
 
 /* ---------------------------------------------------------------------------------------------------------- 
 	04 Media queries (using a mobile-first approach) ------------------------------------------------------------
