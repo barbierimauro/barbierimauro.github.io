@@ -144,9 +144,20 @@ pre {
     /* https://retrocomputing.stackexchange.com/questions/12835/exactly-what-color-was-the-text-on-monochrome-terminals-with-green-on-black-and */
     color: #ffb000;
     background-color: #282828;
-    font-size: 1.1vw;
+    font-size: 0.95em;
     font-style: italic;
     font-weight: bold;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-color: #96D4D4;
+  border-collapse: collapse;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ---------------------------------------------------------------------------------------------------------- 

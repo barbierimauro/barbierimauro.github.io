@@ -4,7 +4,7 @@
     <title>updating TEMPO2 clock files</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Mauro Barbieri">
+  <meta name="author" content="Mauro Barbieri" >
   <meta name="description" content="updating TEMPO2 clock files">
   <meta name="robots" content="all">
   <link href="../etc/style.css" rel="stylesheet" type="text/css">
@@ -33,7 +33,7 @@ The minimum set of files that are necessary to update, are the following:
 Requisite: <br>
 you can download the <a href="https://web.archive.org/web/20060908130342/http://www.atnf.csiro.au/research/pulsar/ppta/tempo2/tempo2_auxiliary.tar.gz">TEMPO2 auxiliary programs</a>
 from <a href="archive.org">archive.org</a>, however these files have some issues for compilation, and here I provide
-<a href="">a corrected version of these utilities</a>.
+<a href="https://github.com/barbierimauro/ESOarchive/blob/main/scripts/tempo2_auxiliary_fixed.tar.gz">a corrected version of these utilities</a>.
 <br>
 download the BIPM circulars T from this site 
 <a href="ftp://ftp2.bipm.org/pub/tai/publication/cirt/">ftp://ftp2.bipm.org/pub/tai/publication/cirt/</a><br>
@@ -48,12 +48,13 @@ At the next update you need only to download the new files.
 <h3>2. ut1.dat</h3>
 Requisite:<br> 
 download the tempo <pre>do.iers.ut1.new</pre> utility (<a href="https://sourceforge.net/p/tempo/tempo/ci/master/tree/util/ut1/do.iers.ut1">utility</a> 
-(that is part of the program <a href="http://tempo.sourceforge.net/">TEMPO</a>)<br>
+that is part of the program <a href="http://tempo.sourceforge.net/">TEMPO</a>)<br>
 download the IERS bulletins B from this site <a href="http://hpiers.obspm.fr/iers/bul/bulb_new">http://hpiers.obspm.fr/iers/bul/bulb_new</a><br>
+<p>
 From the directory where are stored the <pre>bulletinb.*</pre> files run the following command:<br>
 <pre>/path/to/do.iers.ut1.new bulletinb.* >ut1.dat</pre><br>
 Then copy the file ut1.dat to <pre>$TEMPO2/clock/ut1.dat</pre><br>
-
+</p>
 For more information see this <a href="http://www.jb.man.ac.uk/~pulsar/observing/progs/tempo_ut1.html">page</a>.<br>
  <!-- and this page  http://www.atnf.csiro.au/people/pulsar/index.html?n=Processing.Ut1 -->
 Remember that you need all <pre>the bulletinb.* files</pre>, if some files are missing, you will have incorrect results.
@@ -111,11 +112,22 @@ However the IERS help us with <a href="ftp://itrf.ensg.ign.fr/pub/itrf/WGS84.TXT
 <i>"In general the ITRS (and its realizations ITRFyy) are identical to WGS84 at one meter level".</i><br>
 </p>
 
+<p>
 This means that you can insert your XYZ coordinates provided by your GPS (that are based on WGS84 geoid), or in the worst 
 case convert the longitude, latitude, and altitude to XYZ coordinates (a simple C program for the conversion in both 
-direction is <a href="http://sourceforge.net/p/xyz2lla/code/HEAD/tree/src/">available here</a>).<br>
+direction is <a href="http://sourceforge.net/p/xyz2lla/code/HEAD/tree/src/">available here</a>).
+</p>
 
-An accuracy of 100 cm on the position means an accuracy in time of about 3 ns.
+<table  style="font-size: 0.95em;" class="center">
+<tr><td>time resolution</td><td>error in position</td></tr>
+<tr><td>1 as</td><td>0.3 nm</td></tr>
+<tr><td>1 fs</td><td>0.3 um</td></tr>
+<tr><td>1 ps</td><td>0.3 mm</td></tr>
+<tr><td>1 ns</td><td>30 cm</td></tr>
+<tr><td>1 us</td><td>300 m</td></tr>
+<tr><td>1 ms</td><td>300 km</td></tr>
+</table>
+<p></p>
 
 <h3>TEST TEMPO2 PERFORMANCES</h3>
 
