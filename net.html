@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Check Status</title>
+    <style>
+        .reachable { background-color: green; color: white; }
+        .unreachable { background-color: red; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Health Check Status</h1>
+    <h2>Info from A</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Origin</th>
+                <th>IP Origin</th>
+                <th>Destination</th>
+                <th>IP Destination</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="infoA-body">
+            <!-- Data will be inserted here by the following script -->
+        </tbody>
+    </table>
+    <h2>Info from B</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Origin</th>
+                <th>IP Origin</th>
+                <th>Destination</th>
+                <th>IP Destination</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="infoB-body">
+            <!-- Data will be inserted here by the following script -->
+        </tbody>
+    </table>
+    <script>
+        function fetchData(url, elementId) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById(elementId);
+                    data.forEach(entry => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${entry.timestamp}</td>
+                            <td>${entry.origin}</td>
+                            <td>${entry.originIP}</td>
+                            <td>${entry.destination}</td>
+                            <td>${entry.destinationIP}</td>
+                            <td class="${entry.status}">${entry.status}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        fetchData('ilmena.json', 'infoA-body');
+        fetchData('cavalcante.json', 'infoB-body');
+    </script>
+</body>
+</html>
