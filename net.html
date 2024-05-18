@@ -47,24 +47,26 @@
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById(elementId);
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${data.timestamp}</td>
-                        <td>${data.origin}</td>
-                        <td>${data.originIP}</td>
-                        <td>${data.destination}</td>
-                        <td>${data.destinationIP}</td>
-                        <td class="${data.status}">${data.status}</td>
-                    `;
-                    tbody.appendChild(row);
+                    data.forEach(entry => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${entry.timestamp}</td>
+                            <td>${entry.origin}</td>
+                            <td>${entry.originIP}</td>
+                            <td>${entry.destination}</td>
+                            <td>${entry.destinationIP}</td>
+                            <td class="${entry.status}">${entry.status}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
                 });
         }
 
-        fetchData('cavalcante.json', 'infoA-body');
-        fetchData('ilmena.json', 'infoB-body');
+        fetchData('ilmena.json', 'infoA-body');
+        fetchData('cavalcante.json', 'infoB-body');
     </script>
 </body>
 </html>
