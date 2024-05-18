@@ -1,16 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Check Status</title>
     <style>
-        .reachable { background-color: green; color: white; }
-        .unreachable { background-color: red; color: white; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        td.reachable {
+            background-color: green;
+            color: white;
+        }
+        td.unreachable {
+            background-color: red;
+            color: white;
+        }
+        @media (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                display: none;
+            }
+            tr {
+                margin-bottom: 10px;
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: calc(50% - 20px);
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>Health Check Status</h1>
     <h2>Info from A</h2>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Timestamp</th>
@@ -26,7 +95,7 @@
         </tbody>
     </table>
     <h2>Info from B</h2>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Timestamp</th>
@@ -50,12 +119,12 @@
                     data.forEach(entry => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${entry.timestamp}</td>
-                            <td>${entry.origin}</td>
-                            <td>${entry.originIP}</td>
-                            <td>${entry.destination}</td>
-                            <td>${entry.destinationIP}</td>
-                            <td class="${entry.status}">${entry.status}</td>
+                            <td data-label="Timestamp">${entry.timestamp}</td>
+                            <td data-label="Origin">${entry.origin}</td>
+                            <td data-label="IP Origin">${entry.originIP}</td>
+                            <td data-label="Destination">${entry.destination}</td>
+                            <td data-label="IP Destination">${entry.destinationIP}</td>
+                            <td data-label="Status" class="${entry.status}">${entry.status}</td>
                         `;
                         tbody.appendChild(row);
                     });
