@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An interactive timeline of the European Southern Observatory (ESO) history, from 1954 to 2017, featuring key milestones in telescopes and instruments. Recompiled by Mauro Barbieri in 2024.">
+    <meta name="keywords" content="ESO, European Southern Observatory, astronomy, telescopes, timeline, Mauro Barbieri, science history, VLT, ELT, ALMA">
+    <meta name="author" content="Mauro Barbieri">
+    <meta name="robots" content="index, follow">
+    <title>ESO: A Journey Through Time of Telescopes and Instruments</title>
+    <!-- Open Graph tags for social media (e.g., LinkedIn) -->
+    <meta property="og:title" content="ESO: A Journey Through Time of Telescopes and Instruments">
+    <meta property="og:description" content="Explore more than 60 years of ESO milestones in this interactive timeline, recompiled by Mauro Barbieri in 2024.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/eso-timeline/"> <!-- Replace with your GitHub Pages URL -->
+    <meta property="og:image" content="https://yourusername.github.io/eso-timeline/eso-image.jpg"> <!-- Optional: Add a preview image URL -->
+    <!-- Twitter Card tags (if shared on X) -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ESO: A Journey Through Time of Telescopes and Instruments">
+    <meta name="twitter:description" content="Interactive timeline of ESO’s history by Mauro Barbieri, 2024.">
+    <meta name="twitter:image" content="https://yourusername.github.io/eso-timeline/eso-image.jpg"> <!-- Optional: Same image URL -->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000 url('https://www.transparenttextures.com/patterns/stardust.png');
+            color: #fff;
+            padding: 20px;
+        }
+        .top-nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .top-nav a {
+            color: #0cf;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .top-nav a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 10px #00f;
+            margin: 0;
+        }
+        .downloads {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .downloads a {
+            color: #fff;
+            background: #0cf;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .downloads a:hover {
+            background: #00b;
+        }
+        .downloads p {
+            margin: 0 0 15px 0; /* Spacing below the text, above the buttons */
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #fff;
+            opacity: 0.5;
+        }
+        .milestone {
+            position: relative;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            width: 45%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .milestone.left {
+            left: 0;
+            text-align: right;
+        }
+        .milestone.right {
+            left: 55%;
+            text-align: left;
+        }
+        .milestone.visible {
+            opacity: 1;
+        }
+        .year {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #0cf;
+        }
+        .note {
+            margin-top: 5px;
+        }
+        .back-to-top {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .back-to-top a {
+            color: #fff;
+            background: #0cf;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-to-top a:hover {
+            background: #00b;
+        }
+        .credit {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .credit h2 {
+            font-size: 1.2em;
+            color: #ccc; /* Lighter gray to distinguish from title */
+            margin: 0;
+        }
+        </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="../index.html">Back to my Site</a>
+    </div>
+    <h1>ESO: A Journey Through Time of Telescopes and Instruments</h1>
+    <div class="credit">
+        <h2>Recompiled by Mauro Barbieri, 2024</h2>
+    </div>
+    <div class="downloads">
+        <p>Download the timeline with the correspondence between years, observing semester numbers, and key milestones.</p>
+        <a href="eso_timeline.xlsx" download>Download Excel</a>
+        <a href="eso_timeline.csv" download>Download CSV</a>
+        <p></p>
+    </div>
+    <div class="timeline" id="timeline"></div>
+    <div class="back-to-top">
+        <a href="#" onclick="scrollToTop(); return false;">Back to Top</a>
+    </div>
+
+    <script>
+        // ESO timeline data
+        const milestones = [
+            {"year": 1954, "note": "Declaration of intent for creating a European joint observatory in the southern hemisphere"},
+            {"year": 1955, "note": "Site testing in South Africa"},
+            {"year": 1956, "note": "ESO founded"},
+            {"year": 1962, "note": "Site testing in Chile"},
+            {"year": 1963, "note": "Chile selected as site and ESO Chile Agreement signed"},
+            {"year": 1965, "note": "La Silla construction start"},
+            {"year": 1966, "note": "1m ESO telescope"},
+            {"year": 1968, "note": "1.5m ESO telescope"},
+            {"year": 1971, "note": "1m Schmidt telescope"},
+            {"year": 1976, "note": "3.6m telescope"},
+            {"year": 1979, "note": "1.5m Danish telescope"},
+            {"year": 1984, "note": "2.2m telescope"},
+            {"year": 1989, "note": "New Technology Telescope (NTT)"},
+            {"year": 1993, "note": "Creation of WEB at CERN"},
+            {"year": 1995, "note": "Creation of ESO Archive"},
+            {"year": 1998, "note": "VLT first light"},
+            {"year": 2001, "note": "VLTI"},
+            {"year": 2003, "note": "HARPS"},
+            {"year": 2005, "note": "APEX"},
+            {"year": 2009, "note": "VISTA"},
+            {"year": 2011, "note": "ALMA and VST"},
+            {"year": 2015, "note": "Phase 3 data products for Large Programs"},
+            {"year": 2017, "note": "ELT construction starts"},
+            {"year": 2029, "note": "ELT planned first light"}
+        ];
+
+        // Generate timeline
+        const timeline = document.getElementById('timeline');
+        milestones.forEach((milestone, index) => {
+            const div = document.createElement('div');
+            div.classList.add('milestone', index % 2 === 0 ? 'left' : 'right');
+            div.innerHTML = `
+                <div class="year">${milestone.year}</div>
+                <div class="note">${milestone.note}</div>
+            `;
+            timeline.appendChild(div);
+        });
+
+        // Fade-in on scroll
+        function checkVisibility() {
+            const milestones = document.querySelectorAll('.milestone');
+            const triggerBottom = window.innerHeight * 0.8;
+            milestones.forEach(milestone => {
+                const boxTop = milestone.getBoundingClientRect().top;
+                if (boxTop < triggerBottom) {
+                    milestone.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        checkVisibility(); // Initial check
+    </script>
+</body>
+</html>
