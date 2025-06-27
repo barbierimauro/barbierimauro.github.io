@@ -1,0 +1,13 @@
+body {
+  font-family: sans-serif;
+  margin: 2em;
+  max-width: 700px;
+  line-height: 1.6;
+  background: #fff;
+  color: #333;
+}
+
+a { color: #0366d6; text-decoration: none; }
+header { margin-bottom: 2em; }
+nav a { margin-right: 1em; }
+footer { margin-top: 4em; font-size: 0.9em; color: #888; }
